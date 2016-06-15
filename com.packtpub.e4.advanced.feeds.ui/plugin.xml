@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension
+         point="org.eclipse.ui.newWizards">
+      <category
+            id="com.packtpub.e4.advanced.feeds.ui.category"
+            name="Feeds">
+      </category>
+      <wizard
+            category="com.packtpub.e4.advanced.feeds.ui.category"
+            class="com.packtpub.e4.advanced.feeds.ui.NewFeedWizard"
+            icon="icons/feed_16.png"
+            id="com.packtpub.e4.advanced.feeds.ui.wizard1"
+            name="New Feed">
+      </wizard>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.navigatorContent">
+      <navigatorContent
+            activeByDefault="true"
+            contentProvider="com.packtpub.e4.advanced.feeds.ui.navigator.FeedContentProvider"
+            icon="icons/feed_16.png"
+            id="com.packtpub.e4.advanced.feeds.ui.feedNavigatorContent"
+            labelProvider="com.packtpub.e4.advanced.feeds.ui.navigator.FeedLabelProvider"
+            name="Feed Navigator Content">
+         <triggerPoints>
+            <instanceof
+                  value="org.eclipse.core.resources.IResource">
+            </instanceof>
+            <test
+                  forcePluginActivation="true"
+                  property="org.eclipse.core.resources.extension"
+                  value="feeds">
+            </test>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof
+                     value="com.packtpub.e4.advanced.feeds.ui.navigator.Feed">
+               </instanceof>
+            </or>
+         </possibleChildren>
+      </navigatorContent>
+   </extension>
+   <extension
+         point="org.eclipse.ui.navigator.viewer">
+      <viewerContentBinding
+            viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+         <includes>
+            <contentExtension
+                  pattern="com.packtpub.e4.advanced.feeds.ui.feedNavigatorContent">
+            </contentExtension>
+         </includes>
+      </viewerContentBinding>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            defaultHandler="com.packtpub.e4.advanced.feeds.ui.navigator.ShowFeedInBrowserHandler"
+            description="Show Feed in Browser"
+            id="com.packtpub.e4.advanced.feeds.ui.command.showfeed"
+            name="Show Feed in Browser">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.menus">
+      <menuContribution
+            allPopups="false"
+            locationURI="popup:org.eclipse.ui.navigator.ProjectExplorer#PopupMenu">
+         <command
+               commandId="com.packtpub.e4.advanced.feeds.ui.command.showfeed"
+               style="push">
+            <visibleWhen
+                  checkEnabled="false">
+               <with
+                     variable="selection">
+                  <iterate
+                        ifEmpty="false"
+                        operator="or">
+                     <adapt
+                           type="com.packtpub.e4.advanced.feeds.ui.navigator.Feed">
+                     </adapt>
+                  </iterate>
+               </with>
+            </visibleWhen>
+         </command>
+      </menuContribution>
+   </extension>
+
+</plugin>
