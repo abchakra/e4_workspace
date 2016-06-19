@@ -1,0 +1,33 @@
+.MPart {
+	background-color:white;
+}
+
+Text {
+	font-size:12pt;
+}
+
+Button {
+	font-weight:bold;
+	color: red;
+}
+
+.MTrimBar {
+	background-color:#27535C;
+}
+
+.detailsView  Label {
+	font-size:12pt;
+	font-weight:bold;
+}
+
+#snippetsList {
+	background-color:#6C7273;
+	color:white;
+}
+
+.searchTableClass
+{
+	background-color:#51778F;
+	border-width:3;
+	border-color:red;
+}
