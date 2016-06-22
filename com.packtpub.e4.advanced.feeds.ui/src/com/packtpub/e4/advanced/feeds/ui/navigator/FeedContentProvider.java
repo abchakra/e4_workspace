@@ -1,11 +1,13 @@
 package com.packtpub.e4.advanced.feeds.ui.navigator;
 
+import java.io.File;
 import java.io.InputStream;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
+import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -71,7 +73,10 @@ public class FeedContentProvider implements ITreeContentProvider, IResourceChang
 
 	@Override
 	public boolean hasChildren(Object element) {
-		// TODO Auto-generated method stub
+		if (element instanceof IFile) {
+			((File) element).getAbsoluteFile();
+			return true;
+		}
 		return false;
 	}
 
