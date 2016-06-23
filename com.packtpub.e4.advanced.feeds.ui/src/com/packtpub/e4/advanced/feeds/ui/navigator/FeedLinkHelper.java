@@ -17,6 +17,7 @@ import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.ide.IDE;
 import org.eclipse.ui.navigator.ILinkHelper;
 
+import com.packtpub.e4.advanced.feeds.Feed;
 import com.packtpub.e4.advanced.feeds.ui.NewFeedWizard;
 
 public class FeedLinkHelper implements ILinkHelper {
@@ -24,7 +25,7 @@ public class FeedLinkHelper implements ILinkHelper {
 		Object object = selection.getFirstElement();
 		if (object instanceof Feed) {
 			Feed feed = ((Feed) object);
-			byte[] line = (feed.getURL().replace(":", "\\:") + "=" + feed.getName()).getBytes();
+			byte[] line = (feed.getUrl().replace(":", "\\:") + "=" + feed.getName()).getBytes();
 			IProject bookmarks = ResourcesPlugin.getWorkspace().getRoot().getProject(NewFeedWizard.FEEDS_PROJECT);
 			if (bookmarks.exists() && bookmarks.isOpen()) {
 				IFile feeds = bookmarks.getFile(NewFeedWizard.FEEDS_FILE);

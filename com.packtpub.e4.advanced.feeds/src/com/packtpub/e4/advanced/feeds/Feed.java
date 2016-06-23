@@ -1,4 +1,4 @@
-package com.packtpub.e4.advanced.feeds.ui.navigator;
+package com.packtpub.e4.advanced.feeds;
 
 public class Feed {
 	private String name;
@@ -13,7 +13,7 @@ public class Feed {
 		return name;
 	}
 
-	public String getURL() {
+	public String getUrl() {
 		return URL;
 	}
 

@@ -65,6 +65,12 @@
             id="com.packtpub.e4.advanced.feeds.ui.command.showfeed"
             name="Show Feed in Browser">
       </command>
+      <command
+            defaultHandler="com.packtpub.e4.advanced.feeds.ui.navigator.ShowFeedItemInBrowserHandler"
+            description="Show FeedItem in Browser"
+            id="com.packtpub.e4.advanced.feeds.ui.command.showfeeditem"
+            name="Show FeedItem in Browser">
+      </command>
    </extension>
    <extension
          point="org.eclipse.ui.menus">
@@ -82,7 +88,7 @@
                         ifEmpty="false"
                         operator="or">
                      <adapt
-                           type="com.packtpub.e4.advanced.feeds.ui.navigator.Feed">
+                           type="com.packtpub.e4.advanced.feeds.FeedItem">
                      </adapt>
                   </iterate>
                </with>
@@ -101,7 +107,7 @@
             </instanceof></editorInputEnablement>
          <selectionEnablement>
             <instanceof
-                  value="com.packtpub.e4.advanced.feeds.ui.navigator.Feed">
+                  value="com.packtpub.e4.advanced.feeds.Feed">
             </instanceof></selectionEnablement>
       </linkHelper>
    </extension>

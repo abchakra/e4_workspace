@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="feedParser" name="feedParser" schema="schema/feedParser.exsd"/>
+   <extension
+         point="com.packtpub.e4.advanced.feeds.feedParser">
+      <feedParser
+            class="com.packtpub.e4.advanced.feeds.internal.RSSFeedParser"
+            priority="1">
+      </feedParser>
+      <feedParser
+            class="com.packtpub.e4.advanced.feeds.internal.AtomFeedParser:2">
+      </feedParser>
+      <feedParser
+            class="com.packtpub.e4.advanced.feeds.internal.MockFeedParser"
+            priority="-1">
+      </feedParser>
+   </extension>
+
+</plugin>

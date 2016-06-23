@@ -4,6 +4,9 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
+import com.packtpub.e4.advanced.feeds.Feed;
+import com.packtpub.e4.advanced.feeds.FeedItem;
+
 public class FeedLabelProvider implements ILabelProvider {
 
 	@Override
@@ -40,6 +43,8 @@ public class FeedLabelProvider implements ILabelProvider {
 	public String getText(Object element) {
 		if (element instanceof Feed) {
 			return ((Feed) element).getName();
+		} else if (element instanceof FeedItem) {
+			return ((FeedItem) element).getTitle();
 		} else {
 			return null;
 		}

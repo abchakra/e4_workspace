@@ -1,13 +1,12 @@
 package com.packtpub.e4.advanced.feeds.ui.navigator;
 
-import java.io.File;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Properties;
 
-import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IResource;
 import org.eclipse.core.resources.IResourceChangeEvent;
 import org.eclipse.core.resources.IResourceChangeListener;
@@ -22,6 +21,11 @@ import org.eclipse.jface.viewers.ITreeContentProvider;
 import org.eclipse.jface.viewers.StructuredViewer;
 import org.eclipse.jface.viewers.Viewer;
 import org.eclipse.ui.progress.UIJob;
+
+import com.packtpub.e4.advanced.feeds.Feed;
+import com.packtpub.e4.advanced.feeds.FeedItem;
+import com.packtpub.e4.advanced.feeds.FeedParserFactory;
+import com.packtpub.e4.advanced.feeds.IFeedParser;
 
 public class FeedContentProvider implements ITreeContentProvider, IResourceChangeListener {
 	private static final Object[] NO_CHILDREN = new Object[0];
@@ -55,6 +59,16 @@ public class FeedContentProvider implements ITreeContentProvider, IResourceChang
 					return NO_CHILDREN;
 				}
 			}
+		} else if (parentElement instanceof Feed) {
+			Feed feed = (Feed) parentElement;
+			FeedParserFactory factory = FeedParserFactory.getDefault();
+			List<IFeedParser> parsers = factory.getFeedParsers();
+			for (IFeedParser parser : parsers) {
+				List<FeedItem> items = parser.parseFeed(feed);
+				if (items != null && !items.isEmpty()) {
+					return items.toArray();
+				}
+			}
 		}
 		return result;
 	}
@@ -67,14 +81,16 @@ public class FeedContentProvider implements ITreeContentProvider, IResourceChang
 
 	@Override
 	public Object getParent(Object element) {
-		// TODO Auto-generated method stub
+		if (element instanceof FeedItem) {
+			return ((FeedItem) element).getFeed();
+		}
+
 		return null;
 	}
 
 	@Override
 	public boolean hasChildren(Object element) {
-		if (element instanceof IFile) {
-			((File) element).getAbsoluteFile();
+		if (element instanceof Feed) {
 			return true;
 		}
 		return false;

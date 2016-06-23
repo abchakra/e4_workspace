@@ -13,10 +13,10 @@ import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.handlers.HandlerUtil;
 import org.eclipse.ui.statushandlers.StatusManager;
 
-import com.packtpub.e4.advanced.feeds.Feed;
+import com.packtpub.e4.advanced.feeds.FeedItem;
 import com.packtpub.e4.advanced.feeds.ui.Activator;
 
-public class ShowFeedInBrowserHandler extends AbstractHandler {
+public class ShowFeedItemInBrowserHandler extends AbstractHandler {
 
 	@Override
 	public Object execute(ExecutionEvent event) throws ExecutionException {
@@ -25,8 +25,8 @@ public class ShowFeedInBrowserHandler extends AbstractHandler {
 			Iterator<?> it = ((IStructuredSelection) sel).iterator();
 			while (it.hasNext()) {
 				Object object = it.next();
-				if (object instanceof Feed) {
-					String url = ((Feed) object).getUrl();
+				if (object instanceof FeedItem) {
+					String url = ((FeedItem) object).getUrl();
 					try {
 						PlatformUI.getWorkbench().getBrowserSupport().createBrowser(url).openURL(new URL(url));
 					} catch (Exception e) {
